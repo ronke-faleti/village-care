@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Village Care — Rebuilding the infrastructure of care | Korédé Foundation</title>
+<meta name="description" content="Village Care is a proven clinical model for social health. 78% preterm birth reduction, published with the St. Louis Department of Health. A program of the Korédé Foundation.">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --hearth: #3D3230;
+  --hearth-deep: #2E2523;
+  --hearth-mid: #4A3F3B;
+  --cream: #FDF6F0;
+  --cream-dark: #F5EDE4;
+  --wheat: #C8A96E;
+  --wheat-light: #DCC48F;
+  --wheat-dark: #A8884E;
+  --golden: #D4A34A;
+  --amber: #C47D2A;
+  --coral: #D4856A;
+  --coral-dark: #B86B52;
+  --coral-light: #E4A08A;
+  --teal: #2A7B7B;
+  --teal-dark: #1E5C5C;
+  --teal-light: #3A9E9E;
+  --plum: #2D3748;
+  --plum-light: #4A5568;
+  --warm-gray: #8B7E74;
+  --sand: #D6C8B4;
+  --sand-light: #E8DED0;
+  --lace: #F5F0E8;
+  --vermillion: #C4533A;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --max-w: 1240px;
+  --max-w-text: 1100px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--plum);
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ============ ANIMATIONS ============ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.rise { opacity: 0; animation: rise 0.9s cubic-bezier(0.22,1,0.36,1) forwards; }
+.rise-1 { animation-delay: 0.1s; }
+.rise-2 { animation-delay: 0.2s; }
+.rise-3 { animation-delay: 0.3s; }
+.rise-4 { animation-delay: 0.4s; }
+.rise-5 { animation-delay: 0.5s; }
+.rise-6 { animation-delay: 0.6s; }
+.pulse { animation: gentle-pulse 2.8s infinite; }
+
+/* ============ TEXTURES ============ */
+.texture-lace {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23B8A88A' stroke-width='0.4'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Ccircle cx='50' cy='50' r='30'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3Ccircle cx='50' cy='50' r='10'/%3E%3Cpath d='M50 10 L50 90 M10 50 L90 50 M21 21 L79 79 M79 21 L21 79'/%3E%3C/g%3E%3C/svg%3E");
+}
+.texture-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+.texture-grid-lines {
+  background-image: linear-gradient(to right, rgba(61,50,48,0.05) 1px, transparent 1px);
+  background-size: 120px 100%;
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.1rem 2rem;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(253, 246, 240, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgba(61,50,48,0.1);
+}
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.nav-mark {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--hearth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.nav-mark::after {
+  content: '';
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--coral);
+}
+.nav-wordmark {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--hearth);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.nav-sublabel {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-top: 0.3rem;
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--plum-light);
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--hearth); }
+.nav-cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--hearth);
+  color: var(--cream);
+  padding: 0.65rem 1.4rem;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--hearth-deep); }
+
+.mobile-menu { display: none; }
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .mobile-menu { display: flex; align-items: center; gap: 0.5rem; }
+  .mobile-menu .nav-cta { padding: 0.55rem 1rem; font-size: 0.8rem; }
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  padding: 10rem 2rem 5rem;
+  background: var(--cream);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: linear-gradient(to right, rgba(61,50,48,0.04) 1px, transparent 1px);
+  background-size: 120px 100%;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23B8A88A' stroke-width='0.4'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Ccircle cx='50' cy='50' r='30'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3Ccircle cx='50' cy='50' r='10'/%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  border: 1px solid rgba(61,50,48,0.1);
+  border-radius: 100px;
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--hearth);
+  margin-bottom: 2.5rem;
+  box-shadow: 0 1px 3px rgba(61,50,48,0.04);
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal);
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 600;
+  color: var(--hearth);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  max-width: 900px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--coral-dark);
+  font-weight: 500;
+}
+.hero-sub {
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: var(--plum-light);
+  max-width: 640px;
+  line-height: 1.55;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+.hero-sub em {
+  font-style: italic;
+  color: var(--hearth);
+  font-weight: 500;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.btn {
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.95rem 1.8rem;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--hearth);
+  color: var(--cream);
+}
+.btn-primary:hover {
+  background: var(--hearth-deep);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--hearth);
+  border: 1.5px solid rgba(61,50,48,0.25);
+}
+.btn-outline:hover {
+  background: white;
+  border-color: var(--hearth);
+}
+.btn-wheat {
+  background: var(--wheat);
+  color: var(--hearth);
+}
+.btn-wheat:hover { background: var(--wheat-dark); color: white; }
+
+.arrow { transition: transform 0.2s; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ============ HERO STATS ============ */
+.hero-stats {
+  max-width: var(--max-w);
+  margin: 6rem auto 0;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+  border-top: 1px solid rgba(61,50,48,0.12);
+  padding-top: 3rem;
+}
+.hero-stat-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-weight: 600;
+  color: var(--hearth);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.hero-stat-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--plum);
+  margin-top: 0.75rem;
+}
+.hero-stat-sub {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--warm-gray);
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 900px) {
+  .hero { padding: 8rem 1.5rem 3rem; }
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+  }
+}
+
+/* ============ SECTIONS ============ */
+section {
+  padding: 6rem 2rem;
+  position: relative;
+}
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.container-narrow {
+  max-width: var(--max-w-text);
+  margin: 0 auto;
+}
+.kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+.section-title em {
+  font-style: italic;
+  font-weight: 500;
+}
+.section-sub {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--plum-light);
+  max-width: 680px;
+}
+.section-sub em {
+  font-style: italic;
+  color: var(--hearth);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  section { padding: 4.5rem 1.5rem; }
+}
+
+/* ============ MISSING PILLAR ============ */
+.missing-pillar {
+  background: var(--cream-dark);
+  border-top: 1px solid rgba(61,50,48,0.08);
+  border-bottom: 1px solid rgba(61,50,48,0.08);
+}
+.missing-pillar .kicker { color: var(--coral-dark); }
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 3.5rem;
+}
+.pillar-card {
+  padding: 2.25rem 2rem;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid;
+}
+.pillar-card.light {
+  background: white;
+  border-top-color: var(--teal);
+  box-shadow: 0 1px 3px rgba(61,50,48,0.03);
+}
+.pillar-card.dark {
+  background: var(--hearth);
+  color: var(--cream);
+  border-top-color: var(--coral);
+}
+.pillar-card.dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+.pillar-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.pillar-card.light .pillar-label { color: var(--warm-gray); }
+.pillar-card.dark .pillar-label { color: var(--wheat-light); }
+.pillar-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+.pillar-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex: 1;
+}
+.pillar-card.light .pillar-body { color: var(--plum-light); }
+.pillar-card.dark .pillar-body { color: rgba(253,246,240,0.8); }
+.pillar-status {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-style: italic;
+}
+.pillar-card.light .pillar-status {
+  border-top-color: rgba(61,50,48,0.1);
+  color: var(--warm-gray);
+}
+.pillar-card.dark .pillar-status {
+  border-top-color: rgba(253,246,240,0.15);
+  color: var(--wheat);
+}
+
+@media (max-width: 900px) {
+  .pillar-grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* ============ MODEL (People/Place/Platform) ============ */
+.model-section { background: var(--cream); }
+.model-section .kicker { color: var(--wheat-dark); }
+.model-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.model-pillar {
+  border-radius: 20px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid rgba(61,50,48,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.model-pillar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(61,50,48,0.08);
+}
+.model-pillar-image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sand);
+  position: relative;
+}
+.model-pillar-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.model-pillar-body {
+  padding: 2rem 1.75rem;
+}
+.model-pillar-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.model-pillar.people .model-pillar-label { color: var(--coral-dark); }
+.model-pillar.place .model-pillar-label { color: var(--teal-dark); }
+.model-pillar.platform .model-pillar-label { color: var(--wheat-dark); }
+
+.model-pillar-title {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--hearth);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+.model-pillar-body p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--plum-light);
+  margin-bottom: 1.25rem;
+}
+.model-pillar-bullets {
+  list-style: none;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(61,50,48,0.08);
+}
+.model-pillar-bullets li {
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-size: 0.88rem;
+  color: var(--plum-light);
+  position: relative;
+}
+.model-pillar-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.85rem;
+  width: 0.5rem; height: 0.5rem;
+  border-radius: 50%;
+}
+.model-pillar.people .model-pillar-bullets li::before { background: var(--coral); }
+.model-pillar.place .model-pillar-bullets li::before { background: var(--teal); }
+.model-pillar.platform .model-pillar-bullets li::before { background: var(--wheat); }
+
+@media (max-width: 900px) {
+  .model-pillars { grid-template-columns: 1fr; }
+}
+
+/* Before/With comparison */
+.comparison {
+  margin-top: 4rem;
+  padding: 3rem;
+  border-radius: 24px;
+  background: var(--hearth);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.comparison::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+.comparison-left { position: relative; z-index: 1; }
+.comparison-left .kicker { color: var(--wheat-light); margin-bottom: 0.75rem; }
+.comparison-left h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+.comparison-right {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+}
+.comp-card {
+  padding: 1.4rem 1.6rem;
+  border-radius: 14px;
+  border: 1px solid;
+}
+.comp-trad {
+  background: rgba(253,246,240,0.04);
+  border-color: rgba(253,246,240,0.08);
+}
+.comp-vc {
+  background: rgba(200,169,110,0.15);
+  border-color: rgba(200,169,110,0.35);
+}
+.comp-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.comp-trad .comp-label { color: rgba(253,246,240,0.5); }
+.comp-vc .comp-label { color: var(--wheat-light); }
+.comp-body {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(253,246,240,0.8);
+}
+.comp-footer {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-style: italic;
+}
+.comp-trad .comp-footer { color: var(--coral); }
+.comp-vc .comp-footer { color: var(--wheat); }
+
+@media (max-width: 900px) {
+  .comparison { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+}
+
+/* ============ CAREER LADDER ============ */
+.ladder-section {
+  background: var(--cream-dark);
+  position: relative;
+  overflow: hidden;
+}
+.ladder-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  pointer-events: none;
+  background: url('thrive_training.jpg') center center/cover no-repeat;
+  filter: sepia(0.4) saturate(0.85) brightness(0.95);
+}
+.ladder-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--cream-dark) 0%, rgba(245,237,228,0.75) 30%, rgba(245,237,228,0.85) 100%);
+}
+.ladder-section .container { position: relative; z-index: 2; }
+.ladder-section .kicker { color: var(--hearth); }
+
+.ladder-visual {
+  margin: 3.5rem 0 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+.ladder-stage {
+  padding: 1.5rem 1.25rem;
+  border-radius: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+}
+.ladder-stage-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.ladder-stage-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+.ladder-stage-role {
+  font-size: 0.78rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+.ladder-stage-comp {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+.stage-1 {
+  background: #F5E8E4;
+  color: #7A4A3E;
+}
+.stage-2 {
+  background: var(--coral-light);
+  color: var(--hearth);
+}
+.stage-3 {
+  background: var(--coral);
+  color: var(--cream);
+}
+.stage-4 {
+  background: var(--hearth);
+  color: var(--cream);
+}
+.ladder-arrow {
+  font-size: 1.5rem;
+  color: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+.ladder-caption {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--hearth);
+  margin-top: 2rem;
+}
+
+.ladder-callout {
+  margin-top: 3.5rem;
+  background: white;
+  border: 1px solid var(--wheat);
+  padding: 2rem 2.25rem;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.ladder-callout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A96E' stroke-width='0.3'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Ccircle cx='50' cy='50' r='30'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3C/g%3E%3C/svg%3E");
+}
+.ladder-callout-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wheat-dark);
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+.ladder-callout p {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--plum-light);
+  position: relative;
+  max-width: 820px;
+}
+
+@media (max-width: 900px) {
+  .ladder-visual {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .ladder-arrow { transform: rotate(90deg); padding: 0.25rem 0; }
+  .ladder-stage { min-height: auto; }
+}
+
+/* ============ OUTCOMES DEEP ============ */
+.outcomes-section {
+  background: var(--hearth);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.outcomes-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+.outcomes-section .kicker { color: var(--wheat); }
+.outcomes-section .section-title { color: var(--cream); }
+.outcomes-section .section-title em { color: var(--wheat); }
+.outcomes-section .section-sub { color: rgba(253,246,240,0.7); }
+.outcomes-section .section-sub em { color: var(--wheat); }
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+.outcome-card {
+  padding: 1.75rem 1.5rem;
+  border-radius: 14px;
+  background: rgba(253,246,240,0.04);
+  border: 1px solid rgba(253,246,240,0.08);
+}
+.outcome-card.accent {
+  background: rgba(200,169,110,0.12);
+  border-color: rgba(200,169,110,0.32);
+}
+.outcome-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.outcome-card.accent .outcome-num { color: var(--wheat); }
+.outcome-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(253,246,240,0.65);
+  margin-top: 0.75rem;
+  line-height: 1.4;
+}
+
+.math-callout {
+  margin-top: 3.5rem;
+  padding: 2.5rem;
+  border-radius: 18px;
+  background: rgba(253,246,240,0.04);
+  border-left: 3px solid var(--wheat);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.math-callout-content { flex: 1; min-width: 300px; }
+.math-callout-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wheat);
+  margin-bottom: 0.75rem;
+}
+.math-callout h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+.math-callout p {
+  font-size: 0.95rem;
+  color: rgba(253,246,240,0.75);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============ KORÉDÉ HOUSE ============ */
+.house-section { background: var(--cream); }
+.house-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+.house-left .kicker { color: var(--coral-dark); }
+.house-left ul {
+  list-style: none;
+  margin: 2rem 0;
+}
+.house-left ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--plum);
+  margin-bottom: 0.8rem;
+}
+.house-left ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.85rem;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--coral);
+}
+.house-meta {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--warm-gray);
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(61,50,48,0.1);
+}
+
+.house-visual {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(61,50,48,0.15);
+}
+.house-visual img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+.house-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--cream);
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(61,50,48,0.1);
+  text-align: center;
+  min-width: 120px;
+}
+.house-badge-kicker {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+}
+.house-badge-val {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--hearth);
+  margin: 0.25rem 0;
+  line-height: 1;
+}
+.house-badge-sub {
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--coral-dark);
+}
+.house-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.75rem 1.5rem;
+  background: linear-gradient(to top, rgba(61,50,48,0.85), transparent);
+  color: var(--cream);
+}
+.house-caption-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(253,246,240,0.7);
+}
+.house-caption-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0.3rem 0;
+  line-height: 1.1;
+}
+.house-caption-sub {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba(253,246,240,0.75);
+}
+
+@media (max-width: 900px) {
+  .house-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ============ INSIDE THE HOUSE ============ */
+.inside-section { background: var(--cream); }
+.inside-section .kicker { color: var(--wheat-dark); }
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.photo-item {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--sand);
+}
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.photo-item:hover img {
+  transform: scale(1.04);
+}
+.photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.5rem 1.2rem;
+  background: linear-gradient(to top, rgba(61,50,48,0.92), transparent);
+  color: var(--cream);
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .photo-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ RESEARCH ============ */
+.research-section { background: var(--cream-dark); position: relative; }
+.research-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23B8A88A' stroke-width='0.4'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Ccircle cx='50' cy='50' r='30'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3C/g%3E%3C/svg%3E");
+}
+.research-section .kicker { color: var(--coral-dark); }
+.research-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.pub-card {
+  padding: 2rem 1.85rem;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.pub-card.primary {
+  background: var(--hearth);
+  color: var(--cream);
+}
+.pub-card.primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+.pub-card.forthcoming {
+  background: white;
+  border: 1.5px solid var(--hearth);
+  color: var(--plum);
+}
+.pub-card > * { position: relative; }
+.pub-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.pub-card.primary .pub-kicker { color: var(--wheat); }
+.pub-card.forthcoming .pub-kicker { color: var(--coral-dark); }
+.pub-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.65rem;
+}
+.pub-card.primary .pub-title { color: var(--cream); }
+.pub-card.forthcoming .pub-title { color: var(--hearth); }
+.pub-authors {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 1.2rem;
+}
+.pub-card.primary .pub-authors { color: rgba(253,246,240,0.6); }
+.pub-card.forthcoming .pub-authors { color: var(--warm-gray); }
+.pub-abstract {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.pub-card.primary .pub-abstract { color: rgba(253,246,240,0.82); }
+.pub-card.forthcoming .pub-abstract { color: var(--plum-light); }
+.pub-venue {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid;
+  font-size: 0.78rem;
+  font-style: italic;
+}
+.pub-card.primary .pub-venue {
+  border-top-color: rgba(253,246,240,0.15);
+  color: var(--wheat);
+}
+.pub-card.forthcoming .pub-venue {
+  border-top-color: rgba(61,50,48,0.1);
+  color: var(--warm-gray);
+}
+
+.research-partnership {
+  margin-top: 3rem;
+  padding: 2rem 2.25rem;
+  border-radius: 16px;
+  background: var(--hearth-deep);
+  color: var(--cream);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.75rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.research-partnership::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+.research-partnership > * { position: relative; z-index: 1; }
+.rp-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(200,169,110,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wheat);
+}
+.rp-text .rp-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--wheat);
+  margin-bottom: 0.35rem;
+}
+.rp-text h4 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+.rp-text p {
+  font-size: 0.88rem;
+  color: rgba(253,246,240,0.75);
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .research-grid { grid-template-columns: 1fr; }
+  .research-partnership { grid-template-columns: 1fr; text-align: left; }
+  .research-partnership .btn { justify-self: start; }
+}
+
+/* ============ PARTNER ============ */
+.partner-section {
+  background: linear-gradient(135deg, rgba(212,133,106,0.12) 0%, var(--cream) 40%, rgba(200,169,110,0.1) 100%);
+  position: relative;
+}
+.partner-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23B8A88A' stroke-width='0.4'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Ccircle cx='50' cy='50' r='30'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3Cpath d='M50 10 L50 90 M10 50 L90 50'/%3E%3C/g%3E%3C/svg%3E");
+}
+.partner-section .kicker { color: var(--hearth); }
+
+.partner-row {
+  margin-top: 1.25rem;
+  padding: 2rem 2.25rem;
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  background: white;
+  border: 1px solid rgba(61,50,48,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.partner-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(61,50,48,0.06);
+}
+.partner-row.featured {
+  background: var(--hearth);
+  color: var(--cream);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.partner-row.featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+.partner-row > * { position: relative; z-index: 1; }
+.partner-num {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--hearth);
+  opacity: 0.4;
+}
+.partner-row.featured .partner-num {
+  color: var(--wheat);
+  opacity: 1;
+}
+.partner-content .partner-kicker {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--coral-dark);
+  margin-bottom: 0.35rem;
+}
+.partner-row.featured .partner-content .partner-kicker { color: var(--wheat); }
+.partner-content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--hearth);
+  margin-bottom: 0.6rem;
+}
+.partner-row.featured .partner-content h3 { color: var(--cream); }
+.partner-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--plum-light);
+}
+.partner-row.featured .partner-content p { color: rgba(253,246,240,0.8); }
+.partner-price {
+  text-align: right;
+  min-width: 180px;
+}
+.partner-price-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 0.4rem;
+}
+.partner-row.featured .partner-price-label { color: rgba(253,246,240,0.55); }
+.partner-price-val {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--hearth);
+  line-height: 1.3;
+}
+.partner-row.featured .partner-price-val { color: var(--wheat); }
+
+.partner-ctas {
+  margin-top: 3rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .partner-row {
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+  .partner-price { grid-column: 1 / -1; text-align: left; border-top: 1px solid rgba(61,50,48,0.1); padding-top: 1rem; }
+  .partner-row.featured .partner-price { border-top-color: rgba(253,246,240,0.15); }
+  .partner-num { font-size: 2rem; }
+}
+
+/* ============ CLOSING / MISSION ============ */
+.closing-section {
+  background: var(--hearth);
+  color: var(--cream);
+  text-align: center;
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.closing-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+.closing-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(180deg, transparent, rgba(200,169,110,0.08));
+  pointer-events: none;
+}
+.closing-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+.closing-mark {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(200,169,110,0.2);
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--wheat);
+  font-size: 1.1rem;
+}
+.closing-section h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--cream);
+  margin-bottom: 2.5rem;
+}
+.closing-section h2 em {
+  color: var(--wheat);
+  font-weight: 600;
+}
+.closing-attr {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(253,246,240,0.5);
+}
+
+/* ============ ABOUT ============ */
+.about-section { background: var(--cream); }
+.about-section .kicker { color: var(--coral-dark); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 4rem;
+  align-items: flex-start;
+  margin-top: 3rem;
+}
+.about-left h2 { color: var(--hearth); }
+.about-left p {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--plum-light);
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+}
+.about-checks {
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+}
+.about-checks li {
+  font-size: 0.9rem;
+  color: var(--plum);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  line-height: 1.5;
+}
+.about-checks li::before {
+  content: '✓';
+  color: var(--teal);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.founder-card {
+  background: white;
+  border: 1px solid rgba(61,50,48,0.1);
+  border-radius: 20px;
+  padding: 2.25rem;
+  box-shadow: 0 4px 14px rgba(61,50,48,0.05);
+}
+.founder-card-kicker {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 0.5rem;
+}
+.founder-card h3 {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: var(--hearth);
+  line-height: 1;
+}
+.founder-title {
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--warm-gray);
+  margin: 0.35rem 0 1.75rem;
+}
+.founder-card p {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--plum-light);
+  margin-bottom: 1rem;
+}
+.advisors {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(61,50,48,0.1);
+}
+.advisors-kicker {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 1rem;
+}
+.advisors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.85rem;
+}
+.advisors-grid div { color: var(--plum-light); }
+.advisors-grid strong { color: var(--hearth); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .advisors-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ CONTACT ============ */
+.contact-section {
+  background: var(--cream-dark);
+  position: relative;
+  border-top: 1px solid rgba(61,50,48,0.08);
+}
+.contact-section .kicker { color: var(--hearth); text-align: center; }
+.contact-section .section-title { text-align: center; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 3.5rem;
+}
+.contact-card {
+  padding: 2rem 1.75rem;
+  border-radius: 18px;
+  background: white;
+  border: 1px solid rgba(61,50,48,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(61,50,48,0.08);
+}
+.contact-card.featured {
+  background: var(--hearth);
+  color: var(--cream);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.contact-card.featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+.contact-card > * { position: relative; z-index: 1; }
+.contact-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: var(--cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hearth);
+  margin-bottom: 1.25rem;
+  font-size: 1.3rem;
+}
+.contact-card.featured .contact-icon {
+  background: var(--wheat);
+  color: var(--hearth);
+}
+.contact-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--hearth);
+  margin-bottom: 0.5rem;
+}
+.contact-card.featured h3 { color: var(--cream); }
+.contact-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--plum-light);
+  margin-bottom: 1.25rem;
+}
+.contact-card.featured p { color: rgba(253,246,240,0.8); }
+.contact-cta {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--hearth);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 2px;
+}
+.contact-card.featured .contact-cta { color: var(--wheat); }
+
+.contact-direct {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--plum-light);
+}
+.contact-direct a {
+  color: var(--hearth);
+  font-weight: 600;
+  border-bottom: 1px solid var(--hearth);
+}
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--hearth-deep);
+  color: rgba(253,246,240,0.75);
+  padding: 5rem 2rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+.footer-brand .nav-mark {
+  background: var(--cream);
+}
+.footer-brand .nav-wordmark { color: var(--cream); }
+.footer-brand .nav-sublabel { color: rgba(253,246,240,0.5); }
+.footer-brand-body {
+  max-width: 340px;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(253,246,240,0.6);
+}
+.footer-contact {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: rgba(253,246,240,0.55);
+}
+.footer-contact a { color: inherit; transition: color 0.2s; }
+.footer-contact a:hover { color: var(--wheat); }
+.footer-col-title {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(253,246,240,0.5);
+  margin-bottom: 1.25rem;
+}
+.footer-col-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col-list a {
+  font-size: 0.88rem;
+  color: rgba(253,246,240,0.75);
+  transition: color 0.2s;
+}
+.footer-col-list a:hover { color: var(--wheat); }
+.footer-bottom {
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(253,246,240,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: rgba(253,246,240,0.4);
+}
+.footer-legal { display: flex; gap: 1.5rem; }
+.footer-legal a:hover { color: var(--wheat); }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+/* ============ ICONS ============ */
+.icon { width: 22px; height: 22px; stroke-width: 2; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <div class="nav-mark"></div>
+      <div>
+        <div class="nav-wordmark">Village Care</div>
+        <div class="nav-sublabel">A Korédé Foundation Program</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#model" class="nav-link">The Model</a>
+      <a href="#outcomes" class="nav-link">Outcomes</a>
+      <a href="#workforce" class="nav-link">Workforce</a>
+      <a href="#research" class="nav-link">Research</a>
+      <a href="#partner" class="nav-link">Partner</a>
+      <a href="#contact" class="nav-cta">
+        Get in touch
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="mobile-menu">
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-badge rise">
+      <span class="hero-badge-dot pulse"></span>
+      <span>Published outcomes · Faleti et al., 2025 · in partnership with the St. Louis Department of Health</span>
+    </div>
+    <h1 class="rise rise-1">The village didn't disappear<br>because people stopped<br>needing it.</h1>
+    <p class="hero-sub rise rise-2">It disappeared because nobody rebuilt the infrastructure. <em>Village Care™</em> is a proven clinical model for social health — delivered by trained Family Transition Specialists℠, in community-based homes, using an integrated care platform.</p>
+    <div class="hero-ctas rise rise-3">
+      <a href="#partner" class="btn btn-primary">
+        Partner with us
+        <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:16px;height:16px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#research" class="btn btn-outline">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:16px;height:16px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Read the research
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats rise rise-4">
+    <div>
+      <div class="hero-stat-num">78.4%</div>
+      <div class="hero-stat-label">Preterm birth reduction</div>
+      <div class="hero-stat-sub">across 75 families</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Postpartum follow-up</div>
+      <div class="hero-stat-sub">full cohort</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">87%</div>
+      <div class="hero-stat-label">Below depression threshold</div>
+      <div class="hero-stat-sub">at 6 months postpartum</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">NPS 86</div>
+      <div class="hero-stat-label">Net Promoter Score</div>
+      <div class="hero-stat-sub">from the families we serve</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISSING PILLAR ============ -->
+<section class="missing-pillar">
+  <div class="container-narrow">
+    <div class="kicker">THE PROBLEM</div>
+    <h2 class="section-title">
+      Physical health has <em>hospitals</em>.<br>
+      Mental health has <em>therapy offices</em>.<br>
+      Social health has <em style="color:var(--coral-dark)">had nothing</em>.
+    </h2>
+    <p class="section-sub">Social determinants drive 80% of health outcomes — but the doulas, home visitors, peer supporters, and community health workers who deliver social health have had no building, no platform, no billing infrastructure, and no standardized way to prove they work.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar-card light">
+        <div class="pillar-label">PHYSICAL</div>
+        <div class="pillar-title">Clinical care</div>
+        <p class="pillar-body">Hospitals, clinics, telehealth. Built over a century. Multi-trillion-dollar infrastructure.</p>
+        <div class="pillar-status">Exists</div>
+      </div>
+      <div class="pillar-card light">
+        <div class="pillar-label">MENTAL</div>
+        <div class="pillar-title">Therapy &amp; screening</div>
+        <p class="pillar-body">Therapy offices, telehealth platforms. Alma, Headway — raised $300M+. A decade of focused investment.</p>
+        <div class="pillar-status">Exists</div>
+      </div>
+      <div class="pillar-card dark">
+        <div class="pillar-label">SOCIAL</div>
+        <div class="pillar-title">The missing pillar</div>
+        <p class="pillar-body">Peer support, home visits, SDOH navigation, continuous relationships through life transitions. No delivery system — until Village Care.</p>
+        <div class="pillar-status">We built it</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE MODEL ============ -->
+<section class="model-section" id="model">
+  <div class="container">
+    <div class="kicker">THE MODEL</div>
+    <h2 class="section-title">
+      People.<br>
+      Place.<br>
+      <em style="color:var(--teal-dark)">Platform.</em>
+    </h2>
+    <p class="section-sub">Village Care replaces fragmented services with one continuous relationship — from pregnancy through 18 months postpartum, and eventually across every life transition. It runs on three integrated components.</p>
+
+    <div class="model-pillars">
+      <div class="model-pillar people">
+        <div class="model-pillar-image">
+          <img src="fts_mother.jpg" alt="A Family Transition Specialist with a mother and baby during a home visit at Korédé House">
+        </div>
+        <div class="model-pillar-body">
+          <div class="model-pillar-label">PEOPLE</div>
+          <h3 class="model-pillar-title">Family Transition Specialists</h3>
+          <p>A new professional category combining doula, community health worker, home visitor, and peer facilitator skills. Trained through THRIVE, the Foundation's evidence-based certification pathway. Our FTS walk alongside families from pregnancy through 18 months postpartum — one trusted person instead of four disconnected providers.</p>
+          <ul class="model-pillar-bullets">
+            <li>Living wages ($40K–$75K), not gig pay</li>
+            <li>Maximum 30 families per FTS</li>
+            <li>Client-to-Colleague career pathway</li>
+            <li>Continuous relationship through every transition</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="model-pillar place">
+        <div class="model-pillar-image">
+          <img src="kh_porch.jpg" alt="The front porch and arched windows of Korédé House in St. Louis">
+        </div>
+        <div class="model-pillar-body">
+          <div class="model-pillar-label">PLACE</div>
+          <h3 class="model-pillar-title">Korédé Houses</h3>
+          <p>Residential homes, not clinics. A living room where peer circles meet, where new parents rest, where the village gathers. Our flagship Korédé House is at 4317 Forest Park Avenue in St. Louis — a restored historic home that has become the physical infrastructure of the model we're building.</p>
+          <ul class="model-pillar-bullets">
+            <li>~$30K turnkey buildout per home</li>
+            <li>Peer circles, lactation, respite</li>
+            <li>Therapy and wellness services</li>
+            <li>90 days from lease to first family</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="model-pillar platform">
+        <div class="model-pillar-image" style="background:var(--hearth); display:flex; align-items:center; justify-content:center; padding:3rem; color:var(--wheat); text-align:center;">
+          <div>
+            <div style="font-family:var(--font-serif); font-size:1.3rem; color:var(--wheat); margin-bottom:0.5rem;">Stage Care</div>
+            <div style="font-size:0.78rem; color:rgba(253,246,240,0.6); letter-spacing:0.15em; text-transform:uppercase;">Platform screenshot</div>
+            <div style="font-size:0.72rem; color:rgba(253,246,240,0.4); margin-top:1rem; font-style:italic;">Developer: replace with<br>Stage_Web_Portal_and_App_View.png</div>
+          </div>
+        </div>
+        <div class="model-pillar-body">
+          <div class="model-pillar-label">PLATFORM</div>
+          <h3 class="model-pillar-title">Stage Care</h3>
+          <p>The HIPAA-compliant technology that powers every Village Care deployment. Stage Care is operated by our technology partner, Korede Inc., and provides the clinical EHR, client app, Medicaid billing, and outcomes dashboards that allow Village Care to scale with fidelity.</p>
+          <ul class="model-pillar-bullets">
+            <li>Provider EHR with 8 automated screenings</li>
+            <li>Client app with 1:1 and group chat</li>
+            <li>Medicaid billing and revenue cycle management</li>
+            <li>Multi-site dashboards and MCO-ready reports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="comparison">
+      <div class="comparison-left">
+        <div class="kicker">BEFORE VS. WITH VILLAGE CARE</div>
+        <h3>One relationship replaces four.</h3>
+      </div>
+      <div class="comparison-right">
+        <div class="comp-card comp-trad">
+          <div class="comp-label">Traditional</div>
+          <div class="comp-body">
+            Doula → separate provider<br>
+            Home visitor → separate provider<br>
+            CHW → separate program<br>
+            Peer support → separate org
+          </div>
+          <div class="comp-footer">4 relationships · 0 coordination.</div>
+        </div>
+        <div class="comp-card comp-vc">
+          <div class="comp-label">Village Care</div>
+          <div class="comp-body">
+            One Family Transition Specialist.<br>
+            Doula + CHW + Home Visitor + Peer Facilitator.
+          </div>
+          <div class="comp-footer">1 relationship · Total coordination.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAREER LADDER ============ -->
+<section class="ladder-section" id="workforce">
+  <div class="container">
+    <div class="kicker">FROM CLIENT TO COLLEAGUE</div>
+    <h2 class="section-title" style="color:var(--hearth)">
+      The workforce maternal health needs<br>
+      is <em style="color:var(--teal-dark)">already in the community.</em>
+    </h2>
+    <p class="section-sub">We don't recruit FTS from outside the neighborhoods we serve. We hire the mothers who once received Village Care, and we walk with them from lived experience to living-wage professional certification. Every stage pays. Every stage welcomes their babies.</p>
+
+    <div class="ladder-visual">
+      <div class="ladder-stage stage-1">
+        <div>
+          <div class="ladder-stage-label">Stage 01</div>
+          <div class="ladder-stage-title">Village Care Client</div>
+          <div class="ladder-stage-role">Receives support</div>
+        </div>
+        <div class="ladder-stage-comp">—</div>
+      </div>
+      <div class="ladder-arrow">→</div>
+      <div class="ladder-stage stage-2">
+        <div>
+          <div class="ladder-stage-label">Stage 02</div>
+          <div class="ladder-stage-title">Fellow</div>
+          <div class="ladder-stage-role">12 weeks training</div>
+        </div>
+        <div class="ladder-stage-comp">$500/mo stipend</div>
+      </div>
+      <div class="ladder-arrow">→</div>
+      <div class="ladder-stage stage-3">
+        <div>
+          <div class="ladder-stage-label">Stage 03</div>
+          <div class="ladder-stage-title">Facilitator</div>
+          <div class="ladder-stage-role">Part-time, flexible</div>
+        </div>
+        <div class="ladder-stage-comp">$20–25/hr</div>
+      </div>
+      <div class="ladder-arrow">→</div>
+      <div class="ladder-stage stage-4">
+        <div>
+          <div class="ladder-stage-label">Stage 04</div>
+          <div class="ladder-stage-title">Family Transition Specialist</div>
+          <div class="ladder-stage-role">Full certification</div>
+        </div>
+        <div class="ladder-stage-comp">$40K–$75K/yr</div>
+      </div>
+    </div>
+
+    <div class="ladder-caption">Babies welcome at every stage. Childcare is never a barrier.</div>
+
+    <div class="ladder-callout">
+      <div class="ladder-callout-kicker">A TRUE TWO-GENERATIONAL APPROACH</div>
+      <p>Most workforce programs lose women at the first rung because they can't afford childcare to attend training. We designed ours so the work is compatible with having a baby present. Mothers build careers while their children are with them. The community trains the community. Outcomes compound across generations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTCOMES DEEP ============ -->
+<section class="outcomes-section" id="outcomes">
+  <div class="container">
+    <div class="kicker">OUTCOMES</div>
+    <h2 class="section-title">
+      Every stat is<br>
+      <em>platform-verified.</em>
+    </h2>
+    <p class="section-sub">Not self-reported. Not anecdotal. Our platform captures clinical outcomes in real time — screenings, visits, alerts, and follow-ups — published monthly with the St. Louis Department of Health and in peer-reviewed research.</p>
+
+    <div class="outcomes-grid">
+      <div class="outcome-card accent">
+        <div class="outcome-num">78.4%</div>
+        <div class="outcome-label">Preterm birth reduction</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">100%</div>
+        <div class="outcome-label">Postpartum follow-up</div>
+      </div>
+      <div class="outcome-card accent">
+        <div class="outcome-num">87%</div>
+        <div class="outcome-label">Below depression threshold</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">NPS 86</div>
+        <div class="outcome-label">Net Promoter Score</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">75</div>
+        <div class="outcome-label">Families in first cohort</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">208</div>
+        <div class="outcome-label">Clinical assessments completed</div>
+      </div>
+      <div class="outcome-card accent">
+        <div class="outcome-num">4:1</div>
+        <div class="outcome-label">ROI for payors</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">$76K+</div>
+        <div class="outcome-label">Saved per preterm birth prevented</div>
+      </div>
+    </div>
+
+    <div class="math-callout">
+      <div class="math-callout-content">
+        <div class="math-callout-kicker">THE MATH</div>
+        <h3>At $275 PMPM for 18 months, Village Care costs $4,950 per family.</h3>
+        <p>A single preterm birth averted saves $76,000 in NICU and downstream costs. The ROI math for Medicaid MCOs is overwhelming. And the families are healthier.</p>
+      </div>
+      <a href="#research" class="btn btn-wheat">
+        Read the full study
+        <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KORÉDÉ HOUSE FEATURE ============ -->
+<section class="house-section">
+  <div class="container">
+    <div class="house-grid">
+      <div class="house-left">
+        <div class="kicker">THE PLACE</div>
+        <h2 class="section-title" style="color:var(--hearth)">
+          The first Social Health<br>Home in <em style="color:var(--teal-dark)">America.</em>
+        </h2>
+        <p class="section-sub" style="margin-bottom:0.5rem">Korédé House, at 4317 Forest Park Avenue in St. Louis, is the Foundation's flagship — a residential building transformed into a community-centered home for maternal health, peer connection, and continuous care. It is the physical proof that Village Care works, and the model we replicate.</p>
+        <ul>
+          <li>Families gather weekly in SISU Circle peer groups</li>
+          <li>FTS deliver home visits across a 15-mile radius</li>
+          <li>Certified Nurse Midwives and licensed therapists deliver telehealth through the House</li>
+          <li>The community has a door it can knock on</li>
+        </ul>
+        <div class="house-meta">4317 Forest Park Avenue · St. Louis, Missouri · Founded 2025</div>
+      </div>
+      <div class="house-visual">
+        <img src="kh_exterior.jpg" alt="The exterior of Korédé House, a restored historic home in St. Louis framed by tall trees">
+        <div class="house-badge">
+          <div class="house-badge-kicker">Buildout</div>
+          <div class="house-badge-val">~$30K</div>
+          <div class="house-badge-sub">Replicable model</div>
+        </div>
+        <div class="house-caption">
+          <div class="house-caption-label">Flagship</div>
+          <div class="house-caption-title">Korédé House</div>
+          <div class="house-caption-sub">St. Louis, Missouri</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIDE THE HOUSE ============ -->
+<section class="inside-section">
+  <div class="container">
+    <div class="kicker">INSIDE THE HOUSE</div>
+    <h2 class="section-title" style="color:var(--hearth)">
+      Not a waiting room.<br>
+      <em style="color:var(--coral-dark)">A living room.</em>
+    </h2>
+    <p class="section-sub">Village Care looks like this: women in SISU Circles, babies on laps, specialists sitting cross-legged on the floor, children playing with blocks between conversations. This is clinical work delivered the way care used to be delivered — before hospitals, before insurance, before the village disappeared.</p>
+
+    <div class="photo-grid">
+      <div class="photo-item">
+        <img src="sisu_circle.jpg" alt="A SISU Circle peer group in session at Korédé House">
+        <div class="photo-caption">SISU Circle peer group, week 3.</div>
+      </div>
+      <div class="photo-item">
+        <img src="peer_gathering.jpg" alt="A weekly peer gathering with mothers and children at Korédé House">
+        <div class="photo-caption">Weekly peer gathering with children present.</div>
+      </div>
+      <div class="photo-item">
+        <img src="home_visit.jpg" alt="A one-on-one postpartum home visit in a warmly lit living room">
+        <div class="photo-caption">Postpartum home visit at the House.</div>
+      </div>
+      <div class="photo-item">
+        <img src="three_mothers.jpg" alt="Three mothers holding their newborns on a couch at Korédé House">
+        <div class="photo-caption">Three families, one village.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section class="research-section" id="research">
+  <div class="container">
+    <div class="kicker">THE RESEARCH</div>
+    <h2 class="section-title" style="color:var(--hearth)">
+      Rigorous. Peer-reviewed.<br>
+      <em style="color:var(--teal-dark)">Publicly published.</em>
+    </h2>
+    <p class="section-sub">Our outcomes are reviewed and published with the St. Louis Department of Health and academic partners. We believe the model works because we've measured it — and because we've put our data where others can check it.</p>
+
+    <div class="research-grid">
+      <div class="pub-card primary">
+        <div class="pub-kicker">PRIMARY STUDY · 2025</div>
+        <h3 class="pub-title">Village Care: Reducing Preterm Birth Through Continuous Relational Support in a High-Risk Urban Cohort</h3>
+        <div class="pub-authors">Faleti, R., et al.</div>
+        <p class="pub-abstract">A community-based study of 75 Medicaid-enrolled families receiving Village Care from prenatal through 18 months postpartum. Primary outcome: 78.4% reduction in preterm birth odds compared to matched controls. Secondary outcomes: 100% postpartum follow-up, 87% below EPDS depression threshold, NPS 86.</p>
+        <div class="pub-venue">Published with St. Louis Dept. of Health · 208 clinical assessments</div>
+      </div>
+      <div class="pub-card forthcoming">
+        <div class="pub-kicker">IN PROGRESS · 2026</div>
+        <h3 class="pub-title">Cost Savings Analysis of Community-Based Perinatal Care in Medicaid Populations</h3>
+        <div class="pub-authors">Faleti, R., Hammond, G., et al.</div>
+        <p class="pub-abstract">An ROI analysis quantifying the per-member cost savings from Village Care versus standard Medicaid prenatal care. Preliminary findings suggest 4:1 ROI at $275 PMPM over 18 months of enrollment.</p>
+        <div class="pub-venue">In preparation · Cardiovascular Health pilot cohort</div>
+      </div>
+    </div>
+
+    <div class="research-partnership">
+      <div class="rp-icon">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="rp-text">
+        <div class="rp-kicker">RESEARCH PARTNERSHIPS</div>
+        <h4>We collaborate with institutions willing to measure us.</h4>
+        <p>Active and pending research partnerships include Washington University, BJC Healthcare, SSM Health, and the St. Louis Department of Health. If you're an academic, public health agency, or journalist who wants access to our full outcomes data, we'll share it.</p>
+      </div>
+      <a href="#contact" class="btn btn-wheat">
+        Request the one-pager
+        <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNER ============ -->
+<section class="partner-section" id="partner">
+  <div class="container">
+    <div class="kicker">PARTNER WITH US</div>
+    <h2 class="section-title" style="color:var(--hearth)">
+      Three ways to bring<br>
+      <em style="color:var(--teal-dark)">Village Care</em> to your community.
+    </h2>
+    <p class="section-sub">Village Care deployments are operated in partnership with Korede Inc., our technology and operations partner. Whether you're an MCO, a health system, a state agency, or a community organization — there is a configuration that fits.</p>
+
+    <div style="margin-top:3rem; display:flex; flex-direction:column; gap:1.25rem">
+      <div class="partner-row">
+        <div class="partner-num">01</div>
+        <div class="partner-content">
+          <div class="partner-kicker">FOR CBOS &amp; COMMUNITY HEALTH NETWORKS</div>
+          <h3>Platform + Billing</h3>
+          <p>Your existing community partners adopt the Village Care model, use the Stage Care platform, and bill Medicaid through our revenue cycle management. You add fidelity and outcomes measurement without rebuilding your workforce.</p>
+        </div>
+        <div class="partner-price">
+          <div class="partner-price-label">Pricing signal</div>
+          <div class="partner-price-val">$125 per FTS/mo<br>+ 12% RCM</div>
+        </div>
+      </div>
+
+      <div class="partner-row featured">
+        <div class="partner-num">02</div>
+        <div class="partner-content">
+          <div class="partner-kicker">FOR MCOS &amp; HEALTH SYSTEMS</div>
+          <h3>Full Managed Deployment</h3>
+          <p>We bring the full Village Care model to your members: certified Family Transition Specialists, a Korédé House or equivalent community space, clinical oversight, platform, and billing. Deployed in 4–6 weeks. Your members, our infrastructure.</p>
+        </div>
+        <div class="partner-price">
+          <div class="partner-price-label">Pricing signal</div>
+          <div class="partner-price-val">$225–$275+ PMPM</div>
+        </div>
+      </div>
+
+      <div class="partner-row">
+        <div class="partner-num">03</div>
+        <div class="partner-content">
+          <div class="partner-kicker">FOR STATE AGENCIES &amp; POLICYMAKERS</div>
+          <h3>Population Contract</h3>
+          <p>Statewide ILOS deployments, workforce development grants, and policy partnerships. Village Care becomes a named service under your Medicaid program, with the Foundation as the fidelity body and Korede Inc. as the operational partner.</p>
+        </div>
+        <div class="partner-price">
+          <div class="partner-price-label">Pricing signal</div>
+          <div class="partner-price-val">$15–$40 PMPM<br><span style="font-size:0.75rem; font-weight:500; font-style:italic;">(tiered)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="partner-ctas">
+      <a href="#contact" class="btn btn-primary">
+        Schedule a partnership call
+        <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:16px;height:16px"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-outline">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:16px;height:16px"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        Download partnership one-pager
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="closing-section">
+  <div class="closing-inner">
+    <div class="closing-mark">"</div>
+    <h2>Every birth deserves a village.<br>Every family deserves to be <em>held.</em></h2>
+    <div class="closing-attr">Korédé Foundation · since 2025</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="kicker">ABOUT</div>
+        <h2 class="section-title">
+          The Korédé<br>
+          <em style="color:var(--teal-dark)">Foundation.</em>
+        </h2>
+        <p>Founded in 2025 in St. Louis, Missouri. A 501(c)(3) nonprofit rebuilding the village through people, place, and platform.</p>
+        <ul class="about-checks">
+          <li>Owner of the Village Care™ clinical model</li>
+          <li>Owner of the THRIVE Fellowship and certification</li>
+          <li>Operator of Korédé House (St. Louis)</li>
+          <li>Research partner with St. Louis DoH and academic institutions</li>
+        </ul>
+      </div>
+
+      <div class="founder-card">
+        <div class="founder-card-kicker">FOUNDER</div>
+        <h3>Ronke Faleti</h3>
+        <div class="founder-title">Founder &amp; Executive Director</div>
+        <p>18 years in financial services (SVP, Wells Fargo Advisors; FINRA Series 7 &amp; 24). After experiencing postpartum depression as a mother of four, Ronke left Wall Street to build what healthcare couldn't — a continuous, relational care model for new families.</p>
+        <p>She designed Village Care, co-deployed Stage Care with partners, and led the published research producing 78.4% reduction in preterm birth odds across 75 families. Featured in NPR, Entrepreneur.com, and St. Louis Magazine.</p>
+        <div class="advisors">
+          <div class="advisors-kicker">ADVISORS</div>
+          <div class="advisors-grid">
+            <div><strong>Noam Dishon</strong><br>Technical, Wellifiy</div>
+            <div><strong>Yinka Faleti, JD</strong><br>Venture &amp; Legal</div>
+            <div><strong>Dr. Gmerice Hammond</strong><br>Cardiology</div>
+            <div><strong>Joseph Akintolayo</strong><br>Health Tech</div>
+            <div><strong>Ethan Bradley</strong><br>St. Louis DoH Research</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact-section" id="contact">
+  <div class="container-narrow">
+    <div class="kicker">GET IN TOUCH</div>
+    <h2 class="section-title" style="color:var(--hearth)">How can we help?</h2>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9h.01M9 13h.01M9 17h.01"/></svg>
+        </div>
+        <h3>Partners</h3>
+        <p>MCOs, health systems, state agencies, and CBOs ready to explore Village Care deployment.</p>
+        <a href="mailto:partnerships@koredehouse.com" class="contact-cta">
+          Schedule a call
+          <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="contact-card featured">
+        <div class="contact-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Workforce</h3>
+        <p>Doulas, CHWs, and community members interested in becoming a Fellow or Family Transition Specialist.</p>
+        <a href="mailto:fellowship@koredehouse.com" class="contact-cta">
+          Apply to the Fellowship
+          <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <h3>Research &amp; Media</h3>
+        <p>Researchers, journalists, and policymakers requesting the full outcomes study or an interview.</p>
+        <a href="mailto:research@koredehouse.com" class="contact-cta">
+          Request materials
+          <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-direct">
+      Or reach out directly:
+      <a href="mailto:ronke@koredehouse.com">ronke@koredehouse.com</a>
+      ·
+      <a href="tel:3142668205">314-266-8205</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-brand" style="align-items:flex-start">
+          <div class="nav-mark"></div>
+          <div>
+            <div class="nav-wordmark">Village Care</div>
+            <div class="nav-sublabel">A Korédé Foundation Program</div>
+          </div>
+        </div>
+        <p class="footer-brand-body">Village Care is a program of the Korédé Foundation, a 501(c)(3) nonprofit based in St. Louis, Missouri. Deployments are operated in partnership with Korede Inc., our technology and operations partner.</p>
+        <div class="footer-contact">
+          <a href="mailto:ronke@koredehouse.com">ronke@koredehouse.com</a>
+          <a href="tel:3142668205">314-266-8205</a>
+          <span>4317 Forest Park Avenue, St. Louis, MO</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">The Model</div>
+        <ul class="footer-col-list">
+          <li><a href="#model">Village Care</a></li>
+          <li><a href="#model">Korédé House</a></li>
+          <li><a href="#workforce">THRIVE Fellowship</a></li>
+          <li><a href="#model">Stage Care Platform</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Partners</div>
+        <ul class="footer-col-list">
+          <li><a href="#partner">For MCOs</a></li>
+          <li><a href="#partner">For Health Systems</a></li>
+          <li><a href="#partner">For State Agencies</a></li>
+          <li><a href="#partner">For CBOs</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">About</div>
+        <ul class="footer-col-list">
+          <li><a href="#">Our Mission</a></li>
+          <li><a href="#">Leadership</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Korédé Foundation · A 501(c)(3) nonprofit · EIN available on request</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Annual Report</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav shadow/background on scroll
+  const nav = document.getElementById('nav');
+  function onScroll() {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Subtle rise-on-scroll for sections beyond hero
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('section > .container, section > .container-narrow').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
